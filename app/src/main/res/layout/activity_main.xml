@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- NOTE MKS
+
+ As of 3-21-16, the Android Studio online tutorial says that the content_main.xml file
+ resides in the activity_main.xml file. It later instructs to place code in the content_main.xml
+ file.
+
+ For other activities created (such as one named "ex" for example, Studio creates separate
+ activity_ex.xml and content_ex.xml files...with a line in activity_ex.xml which specifies that
+ content_ex.xml is to be included in the activity_ex.xml file.
+
+ It is unclear why the code is included directly in the activity_main.xml file but separated
+ in other activities. When instructed to place code in the content_main.xml file, it should be
+ placed in the activity_main.xml file.
+
+ -->
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:showIn="@layout/activity_my">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hello World!" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/setDaytimeReminderBtnTxt"
+        android:id="@+id/setDaytimeReminderBtn"
+        android:clickable="false"
+        android:onClick="setDaytimeReminder" />
+
+</LinearLayout>

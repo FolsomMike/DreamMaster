@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Dream Master</string>
+    <string name="setDaytimeReminderBtnTxt">Set Up Daytime Reminder Alerts</string>
+    <string name="title_activity_set_daytime_reminder">SetDaytimeReminder</string>
+    <string name="title_activity_daytime_alarm_receiver">DaytimeAlarmReceiver</string>
+    <string name="reality_check_alert">Reality Check!</string>
+    <string name="set_reminder">Set Reminder</string>
+</resources>
