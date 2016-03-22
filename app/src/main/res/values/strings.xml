@@ -5,4 +5,6 @@
     <string name="title_activity_daytime_alarm_receiver">DaytimeAlarmReceiver</string>
     <string name="reality_check_alert">Reality Check!</string>
     <string name="set_reminder">Set Reminder</string>
+    <string name="starting_time">Starting Time:</string>
+    <string name="change">Change</string>
 </resources>
