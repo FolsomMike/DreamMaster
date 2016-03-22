@@ -1,5 +1,8 @@
 package com.mksystems.mks.dreammaster;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
 import android.media.AudioManager;
 import android.media.ToneGenerator;
 import android.os.Bundle;
@@ -18,30 +21,23 @@ import android.view.View;
 //
 
 
-public class DaytimeAlarmReceiver extends AppCompatActivity {
+public class DaytimeAlarmReceiver extends BroadcastReceiver
 
+{
 
 //-----------------------------------------------------------------------------------------------
-// DaytimeAlarmReceiver::onCreate
+// DaytimeAlarmReceiver::onReceive
 //
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_daytime_alarm_receiver);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    public void onReceive(Context context, Intent intent)
+    {
 
         ToneGenerator tg;
 
-        // TONE_PROP_BEEP
-
-
         try {
+
+            //select tone with volume 100
             tg = new ToneGenerator(AudioManager.STREAM_NOTIFICATION, 100);
 
             tg.startTone(ToneGenerator.TONE_PROP_BEEP);
@@ -52,10 +48,11 @@ public class DaytimeAlarmReceiver extends AppCompatActivity {
             sleep(100);
 
             tg.release();
+
         }catch(java.lang.RuntimeException e){}
     }
 
-//end of DaytimeAlarmReceiver::onCreate
+//end of DaytimeAlarmReceiver::onReceive
 //-----------------------------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------------------------

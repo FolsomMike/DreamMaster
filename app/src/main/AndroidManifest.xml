@@ -24,15 +24,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.mksystems.mks.dreammaster.MainActivity" />
         </activity>
-        <activity
-            android:name=".DaytimeAlarmReceiver"
-            android:label="@string/title_activity_daytime_alarm_receiver"
-            android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.mksystems.mks.dreammaster.MainActivity" />
-        </activity>
+
+        <receiver
+            android:name="com.mksystems.mks.dreammaster.DaytimeAlarmReceiver" />
+
     </application>
 
 </manifest>
