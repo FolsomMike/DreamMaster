@@ -56,6 +56,20 @@ public class MainActivity extends AppCompatActivity {
 //end of MainActivity::setDaytimeReminder
 //-----------------------------------------------------------------------------------------------
 
+//-----------------------------------------------------------------------------------------------
+// MainActivity::testAlarmReceiver
+//
+
+    public void testAlarmReceiver(View v) {
+
+        Intent intent = new Intent(this, DaytimeAlarmReceiver.class);
+
+        startActivity(intent);
+
+    }
+
+//end of MainActivity::testAlarmReceiver
+//-----------------------------------------------------------------------------------------------
 
 }//end of class MainActivity
 //-----------------------------------------------------------------------------------------------

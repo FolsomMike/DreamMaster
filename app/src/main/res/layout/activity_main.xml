@@ -41,4 +41,11 @@
         android:clickable="false"
         android:onClick="setDaytimeReminder" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Test Alarm Receiver"
+        android:id="@+id/button2"
+        android:onClick="testAlarmReceiver" />
+
 </LinearLayout>
