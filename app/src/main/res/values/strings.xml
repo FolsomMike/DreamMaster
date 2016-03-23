@@ -8,4 +8,7 @@
     <string name="starting_time">Starting Time:</string>
     <string name="change">Change</string>
     <string name="title_activity_choose_time">Choose Time</string>
+    <string name="setNightTimeReminderBtnTxt">Set Up Night Time Reminder Alerts</string>
+    <string name="today">today</string>
+    <string name="tomorrow">tomorrow</string>
 </resources>

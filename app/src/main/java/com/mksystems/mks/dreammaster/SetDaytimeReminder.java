@@ -81,7 +81,7 @@ public class SetDaytimeReminder extends AppCompatActivity {
         if(startTime == -1){
             textView.setText("Start time: " + "not set");
         }else{
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+            SimpleDateFormat sdf = new SimpleDateFormat("MM-dd hh:mm a");
             textView.setText("Start time: " + sdf.format(startTime));
         }
 

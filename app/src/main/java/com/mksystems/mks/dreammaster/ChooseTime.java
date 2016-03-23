@@ -3,12 +3,9 @@ package com.mksystems.mks.dreammaster;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
-import android.widget.TextView;
+import android.widget.RadioButton;
 import android.widget.TimePicker;
 
 import java.util.Calendar;
@@ -99,6 +96,12 @@ public class ChooseTime extends AppCompatActivity {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, hour);
         calendar.set(Calendar.MINUTE, minute);
+
+        //if user has chosen tomorrow for the start date, add one day to the start time
+
+        RadioButton tomorrowBtn = (RadioButton) findViewById(R.id.radioButtonTomorrow);
+
+        if(tomorrowBtn.isChecked()) { calendar.roll(Calendar.DAY_OF_MONTH, true); }
 
         SharedPreferences sharedPref = this.getSharedPreferences(
                 "com.mksystems.dreammaster.APP_PREFERENCES", Context.MODE_PRIVATE);
