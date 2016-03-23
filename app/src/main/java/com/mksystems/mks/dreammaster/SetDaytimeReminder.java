@@ -63,6 +63,8 @@ public class SetDaytimeReminder extends AppCompatActivity {
 
         setDaytimeAlarmStartTextView();
 
+        initEnabledDisabledRadioBtnState();
+
     }
 
 //end of SetDaytimeReminder::onStart
@@ -95,6 +97,31 @@ public class SetDaytimeReminder extends AppCompatActivity {
 //-----------------------------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------------------------
+// SetDaytimeReminder::initEnabledDisabledRadioBtnState
+//
+// Reads the enabled/disabled state from the prefs file and sets the radio buttons to match.
+//
+
+    public void initEnabledDisabledRadioBtnState() {
+
+        boolean enabled = readEnabledStateFromPrefs();
+
+        RadioButton radioBtn;
+
+        if (enabled){
+            radioBtn = (RadioButton) findViewById(R.id.enabledRadioBtn);
+        }else{
+            radioBtn = (RadioButton) findViewById(R.id.disabledRadioBtn);
+        }
+
+        radioBtn.setChecked(true);
+
+    }
+
+//end of SetDaytimeReminder::initEnabledDisabledRadioBtnState
+//-----------------------------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------------------------
 // SetDaytimeReminder::readStartTimeFromPrefs
 //
 // Reads the Daytime Reminder Alert start time from the prefs file and returns it as
@@ -113,6 +140,49 @@ public class SetDaytimeReminder extends AppCompatActivity {
     }
 
 //end of SetDaytimeReminder::readStartTimeFromPrefs
+//-----------------------------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------------------------
+// SetDaytimeReminder::readEnabledStateFromPrefs
+//
+// Reads the Daytime Reminder Alert enabled/disabled status from the prefs file and returns it as
+// a boolean.
+//
+// A named prefs file is used to allow sharing between activities.
+//
+
+    public boolean readEnabledStateFromPrefs() {
+
+        SharedPreferences sharedPref = this.getSharedPreferences(
+                "com.mksystems.dreammaster.APP_PREFERENCES", Context.MODE_PRIVATE);
+
+        return(sharedPref.getBoolean("Daytime Alarm Enabled", false));
+
+    }
+
+//end of SetDaytimeReminder::readEnabledStateFromPrefs
+//-----------------------------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------------------------
+// SetDaytimeReminder::writeEnabledStateToPrefs
+//
+// Writes the Daytime Reminder Alert enabled/disabled status to the prefs file per the state of
+// pEnabled.
+//
+// A named prefs file is used to allow sharing between activities.
+//
+
+    public void writeEnabledStateToPrefs(boolean pEnabled) {
+
+        SharedPreferences sharedPref = this.getSharedPreferences(
+                "com.mksystems.dreammaster.APP_PREFERENCES", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putBoolean("Daytime Alarm Enabled", pEnabled);
+        editor.commit();
+
+    }
+
+//end of SetDaytimeReminder::writeEnabledStateToPrefs
 //-----------------------------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------------------------
@@ -140,6 +210,8 @@ public class SetDaytimeReminder extends AppCompatActivity {
 // Sets the alarm manager to fire at the specified start time and then repeat at the specified
 // repeat interval.
 //
+// Saves the enabled state in the prefs file.
+//
 
     public void enableAlarmManager() {
 
@@ -164,7 +236,9 @@ public class SetDaytimeReminder extends AppCompatActivity {
         alarmIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
 
         // set the alarm to repeat at the specified interval
-        alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, startTime, 1000*60 * interval, alarmIntent);
+        alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, startTime, 1000 * 60 * interval, alarmIntent);
+
+        writeEnabledStateToPrefs(true);
 
     }
 
@@ -176,6 +250,8 @@ public class SetDaytimeReminder extends AppCompatActivity {
 //
 // Cancels any active alarm manager triggers.
 //
+// Saves the disabled state in the prefs file.
+//
 
     public void cancelAlarmManager() {
 
@@ -184,6 +260,8 @@ public class SetDaytimeReminder extends AppCompatActivity {
         alarmIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
 
         alarmMgr.cancel(alarmIntent);
+
+        writeEnabledStateToPrefs(false);
 
     }
 
