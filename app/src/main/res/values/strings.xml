@@ -12,4 +12,8 @@
     <string name="today">today</string>
     <string name="tomorrow">tomorrow</string>
     <string name="set">Set</string>
+    <string name="repeat_interval">Repeat Interval</string>
+    <string name="minutes">minutes</string>
+    <string name="enabled">Enabled</string>
+    <string name="disabled">Disabled</string>
 </resources>

@@ -11,7 +11,11 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.RadioButton;
+import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -131,30 +135,89 @@ public class SetDaytimeReminder extends AppCompatActivity {
 //-----------------------------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------------------------
-// SetDaytimeReminder::enableDaytimeAlarmManager
+// SetDaytimeReminder::enableAlarmManager
 //
 // Sets the alarm manager to fire at the specified start time and then repeat at the specified
 // repeat interval.
 //
 
-    public void enableDaytimeAlarmManager(View v) {
+    public void enableAlarmManager() {
 
         long startTime = readStartTimeFromPrefs();
 
         if (startTime == -1) return;
+
+        Spinner spinner = (Spinner) findViewById(R.id.repeatIntervalSpnr);
+
+        String intervalSelection = spinner.getSelectedItem().toString();
+
+        int interval = 15; //default
+
+        try {
+            interval = Integer.parseInt(intervalSelection);
+        } catch(NumberFormatException nfe) {
+            System.out.println("Could not parse " + nfe);
+        }
 
         alarmMgr = (AlarmManager)this.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(this, DaytimeAlarmReceiver.class);
         alarmIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
 
         // set the alarm to repeat at the specified interval
-        alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, startTime, 1000 * 60 * 20, alarmIntent);
+        alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, startTime, 1000*60 * interval, alarmIntent);
 
     }
 
-//end of EnableDaytimeReminder::setDaytimeAlarmManager
+//end of SetDaytimeReminder::enableAlarmManager
 //-----------------------------------------------------------------------------------------------
 
+//-----------------------------------------------------------------------------------------------
+// DaytimeReminder::cancelAlarmManager
+//
+// Cancels any active alarm manager triggers.
+//
+
+    public void cancelAlarmManager() {
+
+        alarmMgr = (AlarmManager)this.getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(this, DaytimeAlarmReceiver.class);
+        alarmIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
+
+        alarmMgr.cancel(alarmIntent);
+
+    }
+
+//end of SetDaytimeReminder::cancelAlarmManager
+//-----------------------------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------------------------
+// SetDaytimeReminder::handleEnableDisableRadioBtns
+//
+// Handles user selection of the Enable/Disable radio buttons. Enables or disables the daytime
+// reminder alerts.
+//
+
+    public void handleEnableDisableRadioBtns(View view) {
+
+        // is the button now checked?
+        boolean checked = ((RadioButton) view).isChecked();
+
+        // check which radio button was clicked
+
+        switch(view.getId()) {
+            case R.id.enabledRadioBtn:
+                if (checked)
+                    enableAlarmManager();
+                    break;
+            case R.id.disabledRadioBtn:
+                if (checked)
+                    cancelAlarmManager();
+                    break;
+        }
+    }
+
+//end of SetDaytimeReminder::handleEnableDisableRadioBtns
+//-----------------------------------------------------------------------------------------------
 
 }// end of class SetDaytimeReminder
 //-----------------------------------------------------------------------------------------------
