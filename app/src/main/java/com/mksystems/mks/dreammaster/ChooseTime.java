@@ -3,8 +3,10 @@ package com.mksystems.mks.dreammaster;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.RadioButton;
 import android.widget.TimePicker;
 
@@ -40,17 +42,18 @@ public class ChooseTime extends AppCompatActivity {
 //-----------------------------------------------------------------------------------------------
 // ChooseTime::onPause
 //
+// Nothing actually done here...the time is only saved if the user presses the "Set" button.
+//
 // Note that onStop is usually called AFTER the parent activity's onStart is called. If a
 // value needs to be saved for use by the parent activity, do that in onPause as well since
 // that function seems to be called BEFORE the parent's onStart. For good measure, do it in
 // both function.
 //
+
     @Override
     protected void onPause() {
 
         super.onPause();
-
-        saveStartTimeToPrefs();
 
     }
 
@@ -59,6 +62,8 @@ public class ChooseTime extends AppCompatActivity {
 
 //-----------------------------------------------------------------------------------------------
 // ChooseTime::onStop
+//
+// Nothing actually done here...the time is only saved if the user presses the "Set" button.
 //
 // Note that onStop is usually called AFTER the parent activity's onStart is called. If a
 // value needs to be saved for use by the parent activity, do that in onPause as well since
@@ -71,11 +76,28 @@ public class ChooseTime extends AppCompatActivity {
 
         super.onStop();
 
-        saveStartTimeToPrefs();
-
     }
 
 //end of MainActivity::onStop
+//-----------------------------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------------------------
+// ChooseTime::setTimeAndGoToParentActivity
+//
+// Stores the selected time for use as the daytime reminder alert start time.
+//
+// Closes the activity and returns to the parent activity.
+//
+
+    public void setTimeAndGoToParentActivity(View v) {
+
+        saveStartTimeToPrefs();
+
+        NavUtils.navigateUpFromSameTask(this);
+
+    }
+
+//end of MainActivity::setTimeAndGoToParentActivity
 //-----------------------------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------------------------
