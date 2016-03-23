@@ -25,9 +25,17 @@
                 android:value="com.mksystems.mks.dreammaster.MainActivity" />
         </activity>
 
-        <receiver
-            android:name="com.mksystems.mks.dreammaster.DaytimeAlarmReceiver" />
+        <receiver android:name=".DaytimeAlarmReceiver" />
 
+        <activity
+            android:name=".ChooseTime"
+            android:label="@string/title_activity_choose_time"
+            android:parentActivityName=".SetDaytimeReminder"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.mksystems.mks.dreammaster.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

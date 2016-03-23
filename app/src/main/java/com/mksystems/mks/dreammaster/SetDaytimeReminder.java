@@ -43,15 +43,29 @@ public class SetDaytimeReminder extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        setDaytimeAlarmStartTextView();
-
     }
 
 //end of SetDaytimeReminder::onCreate
 //-----------------------------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------------------------
-// MainActivity::setDaytimeAlarmStartTextView
+// SetDaytimeReminder::onStart
+//
+
+    @Override
+    protected void onStart() {
+
+        super.onStart();
+
+        setDaytimeAlarmStartTextView();
+
+    }
+
+//end of SetDaytimeReminder::onStart
+//-----------------------------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------------------------
+// SetDaytimeReminder::setDaytimeAlarmStartTextView
 //
 // If the start time has been set, it is displayed in the view. If not set, then "not set" is
 // displayed.
@@ -60,18 +74,15 @@ public class SetDaytimeReminder extends AppCompatActivity {
     public void setDaytimeAlarmStartTextView() {
 
 
-        SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
-        long startTime = sharedPref.getLong("Daytime Alarm Start Time", -1);
-
         TextView textView = (TextView) findViewById(R.id.starting_time);
+
+        long startTime = readStartTimeFromPrefs();
 
         if(startTime == -1){
             textView.setText("Start time: " + "not set");
         }else{
-
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
             textView.setText("Start time: " + sdf.format(startTime));
-
         }
 
     }
@@ -80,41 +91,70 @@ public class SetDaytimeReminder extends AppCompatActivity {
 //-----------------------------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------------------------
-// MainActivity::setDaytimeAlarmManager
+// SetDaytimeReminder::readStartTimeFromPrefs
+//
+// Reads the Daytime Reminder Alert start time from the prefs file and returns it as
+// milliseconds in a long.
+//
+// A named prefs file is used to allow sharing between activities.
+//
+
+    public long readStartTimeFromPrefs() {
+
+        SharedPreferences sharedPref = this.getSharedPreferences(
+                "com.mksystems.dreammaster.APP_PREFERENCES", Context.MODE_PRIVATE);
+
+        return(sharedPref.getLong("Daytime Alarm Start Time", -1));
+
+    }
+
+//end of SetDaytimeReminder::readStartTimeFromPrefs
+//-----------------------------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------------------------
+// SetDaytimeReminder::setDaytimeAlarmManager
+//
+// Sets the alarm manager to fire at the specified start time and then repeat at the specified
+// repeat interval.
+//
+// If the start time has never been set (= -1), no action is taken.
+//
+
+    public void setDaytimeAlarmManager(View v) {
+
+        Intent intent = new Intent(this, ChooseTime.class);
+        startActivity(intent);
+
+    }
+
+//end of SetDaytimeReminder::setDaytimeAlarmManager
+//-----------------------------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------------------------
+// SetDaytimeReminder::enableDaytimeAlarmManager
 //
 // Sets the alarm manager to fire at the specified start time and then repeat at the specified
 // repeat interval.
 //
 
-    public void setDaytimeAlarmManager(View v) {
+    public void enableDaytimeAlarmManager(View v) {
+
+        long startTime = readStartTimeFromPrefs();
+
+        if (startTime == -1) return;
 
         alarmMgr = (AlarmManager)this.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(this, DaytimeAlarmReceiver.class);
         alarmIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
 
-        // set the alarm to start at the specified start time
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY, 11);
-        calendar.set(Calendar.MINUTE, 51);
-
         // set the alarm to repeat at the specified interval
-        alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                1000 * 60 * 20, alarmIntent);
-
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        TextView textView = (TextView) findViewById(R.id.starting_time);
-        textView.setText("Start time: " + sdf.format(calendar.getTime()));
-
-        SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putLong("Daytime Alarm Start Time", calendar.getTimeInMillis());
-        editor.commit();
+        alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, startTime, 1000 * 60 * 20, alarmIntent);
 
     }
 
-//end of MainActivity::setDaytimeAlarmManager
+//end of EnableDaytimeReminder::setDaytimeAlarmManager
 //-----------------------------------------------------------------------------------------------
+
 
 }// end of class SetDaytimeReminder
 //-----------------------------------------------------------------------------------------------
