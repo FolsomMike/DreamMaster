@@ -46,7 +46,7 @@ public class DaytimeAlarmReceiver extends BroadcastReceiver
             sleep(400);
             tg.startTone(ToneGenerator.TONE_PROP_BEEP);
             sleep(300);
-            
+
             tg.release();
 
         }catch(java.lang.RuntimeException e){}
