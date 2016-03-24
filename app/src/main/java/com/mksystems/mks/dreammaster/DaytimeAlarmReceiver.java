@@ -41,12 +41,12 @@ public class DaytimeAlarmReceiver extends BroadcastReceiver
             tg = new ToneGenerator(AudioManager.STREAM_NOTIFICATION, 100);
 
             tg.startTone(ToneGenerator.TONE_PROP_BEEP);
-            sleep(100);
-            tg.startTone(ToneGenerator.TONE_PROP_BEEP2);
-            sleep(100);
+            sleep(200);
+            tg.startTone(ToneGenerator.TONE_PROP_ACK);
+            sleep(400);
             tg.startTone(ToneGenerator.TONE_PROP_BEEP);
-            sleep(100);
-
+            sleep(300);
+            
             tg.release();
 
         }catch(java.lang.RuntimeException e){}
