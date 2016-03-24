@@ -11,6 +11,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
@@ -26,11 +27,14 @@ import java.util.Calendar;
 // class SetDaytimeReminder
 //
 
-public class SetDaytimeReminder extends AppCompatActivity {
+public class SetDaytimeReminder extends AppCompatActivity implements
+                                                            AdapterView.OnItemSelectedListener {
 
 
     private AlarmManager alarmMgr;
     private PendingIntent alarmIntent;
+
+    private boolean ignoreSpinner = false;
 
 
 //-----------------------------------------------------------------------------------------------
@@ -46,6 +50,9 @@ public class SetDaytimeReminder extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        Spinner spinner = (Spinner) findViewById(R.id.repeatIntervalSpnr);
+        spinner.setOnItemSelectedListener(this);
 
     }
 
@@ -64,6 +71,8 @@ public class SetDaytimeReminder extends AppCompatActivity {
         setDaytimeAlarmStartTextView();
 
         initEnabledDisabledRadioBtnState();
+
+        initRepeatIntervalSpinner();
 
     }
 
@@ -94,6 +103,52 @@ public class SetDaytimeReminder extends AppCompatActivity {
     }
 
 //end of SetDaytimeReminder::setDaytimeAlarmStartTextView
+//-----------------------------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------------------------
+// SetDaytimeReminder::initRepeatIntervalSpinner
+//
+// Reads the enabled/disabled state from the prefs file and sets the radio buttons to match.
+//
+// Flag ignoreSpinner is set true as setting the selection will trigger the onItemSelected
+// call when that is not wanted...the true flag causes the function to do nothing.
+//
+
+    private void initRepeatIntervalSpinner() {
+
+        String interval = readStringFromPrefs("Daytime Alarm Repeat Interval Minutes", "15");
+
+        Spinner spinner = (Spinner) findViewById(R.id.repeatIntervalSpnr);
+
+        ignoreSpinner = true;
+
+        spinner.setSelection(getIndexInIntervalSpinner(spinner, interval));
+
+    }
+
+//end of SetDaytimeReminder::initRepeatIntervalSpinner
+//-----------------------------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------------------------
+// SetDaytimeReminder::getIndexInIntervalSpinner
+//
+// Finds the position in the array of choices for pSpinner of pString. Returns 0 if pString is not
+// found in the array.
+//
+
+    private int getIndexInIntervalSpinner(Spinner pSpinner, String pString){
+
+        for (int i=0;i<pSpinner.getCount();i++){
+            if (pSpinner.getItemAtPosition(i).equals(pString)){
+                return(i);
+            }
+        }
+
+        return(0);
+
+    }
+
+//end of SetDaytimeReminder::getIndexInIntervalSpinner
 //-----------------------------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------------------------
@@ -191,6 +246,23 @@ public class SetDaytimeReminder extends AppCompatActivity {
 //-----------------------------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------------------------
+// SetDaytimeReminder::readStringFromPrefs
+//
+// Reads a String value for pKey from the prefs file using pDefault as the default.
+//
+// A named prefs file is used to allow sharing between activities.
+//
+
+    private String readStringFromPrefs(String pKey, String pDefault) {
+
+        return(getSharedPrefs().getString(pKey, pDefault));
+
+    }
+
+//end of SetDaytimeReminder::readStringFromPrefs
+//-----------------------------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------------------------
 // SetDaytimeReminder::getPrefsEditor
 //
 // Returns an editor for the app's prefs file.
@@ -265,6 +337,25 @@ public class SetDaytimeReminder extends AppCompatActivity {
     }
 
 //end of SetDaytimeReminder::writeBooleanToPrefs
+//-----------------------------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------------------------
+// SetDaytimeReminder::writeStringToPrefs
+//
+// Writes String pValue to the prefs file for key pKey.
+//
+// A named prefs file is used to allow sharing between activities.
+//
+
+    private void writeStringToPrefs(String pKey, String pValue) {
+
+        SharedPreferences.Editor editor = getPrefsEditor();
+        editor.putString(pKey, pValue);
+        editor.commit();
+
+    }
+
+//end of SetDaytimeReminder::writeStringToPrefs
 //-----------------------------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------------------------
@@ -353,17 +444,7 @@ public class SetDaytimeReminder extends AppCompatActivity {
 
         if (startTime == -1) return;
 
-        Spinner spinner = (Spinner) findViewById(R.id.repeatIntervalSpnr);
-
-        String intervalSelection = spinner.getSelectedItem().toString();
-
-        int interval = 15; //default
-
-        try {
-            interval = Integer.parseInt(intervalSelection);
-        } catch(NumberFormatException nfe) {
-            System.out.println("Could not parse " + nfe);
-        }
+        int interval = getSelectedIntFromIntervalSpinner();
 
         alarmMgr = (AlarmManager)this.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(this, DaytimeAlarmReceiver.class);
@@ -377,6 +458,49 @@ public class SetDaytimeReminder extends AppCompatActivity {
     }
 
 //end of SetDaytimeReminder::enableAlarmManager
+//-----------------------------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------------------------
+// SetDaytimeReminder::getSelectedStringFromIntervalSpinner
+//
+// Returns the selected value in the spinner as a String.
+//
+
+    private String getSelectedStringFromIntervalSpinner() {
+
+        Spinner spinner = (Spinner) findViewById(R.id.repeatIntervalSpnr);
+
+        return(spinner.getSelectedItem().toString());
+
+    }
+
+//end of SetDaytimeReminder::getSelectedStringFromIntervalSpinner
+//-----------------------------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------------------------
+// SetDaytimeReminder::getSelectedIntFromIntervalSpinner
+//
+// Returns the selected value in the spinner as an int. Returns default of 15 if the value
+// cannot be converted to an int for some reason.
+//
+
+    private int getSelectedIntFromIntervalSpinner() {
+
+        String selection = getSelectedStringFromIntervalSpinner();
+
+        int interval = 15; //default
+
+        try {
+            interval = Integer.parseInt(selection);
+        } catch(NumberFormatException nfe) {
+            System.out.println("Could not parse " + nfe);
+        }
+
+        return(interval);
+
+    }
+
+//end of SetDaytimeReminder::getSelectedValueFromIntervalSpinner
 //-----------------------------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------------------------
@@ -429,6 +553,48 @@ public class SetDaytimeReminder extends AppCompatActivity {
     }
 
 //end of SetDaytimeReminder::handleEnableDisableRadioBtns
+//-----------------------------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------------------------
+// SetDaytimeReminder::onItemSelected
+//
+// Handles user selection of the interval selection spinner.
+//
+// If the alarm is enabled, calls to enable it again which will override the previous alarm.
+//
+// If ignoreSpinner is true, nothing is done except resetting that flag. This allows the
+// spinner's value to be initialized when the activity is opened without setting the alarm.
+//
+
+    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+
+        if (ignoreSpinner){ ignoreSpinner = false; return; }
+
+        String interval = (String)parent.getItemAtPosition(pos);
+
+        writeStringToPrefs("Daytime Alarm Repeat Interval Minutes", interval);
+
+        if (((RadioButton)findViewById(R.id.enabledRadioBtn)).isChecked()){ enableAlarmManager(); }
+
+    }
+
+//end of SetDaytimeReminder::onItemSelected
+//-----------------------------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------------------------
+// SetDaytimeReminder::onNothingSelected
+//
+// Handles user selection of the interval selection spinner.
+//
+// Callback method to be invoked when the selection disappears from this view. The selection can
+// disappear for instance when touch is activated or when the adapter becomes empty.
+//
+
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
+
+//end of SetDaytimeReminder::onNothingSelected
 //-----------------------------------------------------------------------------------------------
 
 }// end of class SetDaytimeReminder
