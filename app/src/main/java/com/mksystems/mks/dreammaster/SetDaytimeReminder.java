@@ -36,6 +36,7 @@ public class SetDaytimeReminder extends AppCompatActivity implements
 
     private boolean ignoreSpinner = false;
 
+    static final int SET_TIME_REQUEST = 1;
 
 //-----------------------------------------------------------------------------------------------
 // SetDaytimeReminder::onCreate
@@ -422,7 +423,7 @@ public class SetDaytimeReminder extends AppCompatActivity implements
     public void setDaytimeAlarmManager(View v) {
 
         Intent intent = new Intent(this, ChooseTime.class);
-        startActivity(intent);
+        startActivityForResult(intent, SET_TIME_REQUEST);
 
     }
 
@@ -430,15 +431,34 @@ public class SetDaytimeReminder extends AppCompatActivity implements
 //-----------------------------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------------------------
-// SetDaytimeReminder::enableAlarmManager
+//SetDaytimeReminder::onActivityResult
+//
+// Handles callbacks from other activities.
+//
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == SET_TIME_REQUEST) {
+
+            if (resultCode == RESULT_OK) {
+                // set a new alarm if TimeChooser requests
+                activateAlarmManagerIfEnabled();
+            }
+        }
+    }
+
+//end of SetDaytimeReminder::onActivityResult
+//-----------------------------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------------------------
+// SetDaytimeReminder::activateAlarmManager
 //
 // Sets the alarm manager to fire at the specified start time and then repeat at the specified
 // repeat interval.
 //
-// Saves the enabled state in the prefs file.
-//
 
-    private void enableAlarmManager() {
+    private void activateAlarmManager() {
 
         long startTime = readStartTimeFromPrefs();
 
@@ -453,11 +473,26 @@ public class SetDaytimeReminder extends AppCompatActivity implements
         // set the alarm to repeat at the specified interval
         alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, startTime, 1000 * 60 * interval, alarmIntent);
 
-        writeEnabledStateToPrefs(true);
+    }
+
+//end of SetDaytimeReminder::activateAlarmManager
+//-----------------------------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------------------------
+// SetDaytimeReminder::activateAlarmManagerIfEnabled
+//
+// Activates the alarm if the user has enabled it.
+//
+
+    private void activateAlarmManagerIfEnabled() {
+
+        if (((RadioButton) findViewById(R.id.enabledRadioBtn)).isChecked()) {
+            activateAlarmManager();
+        }
 
     }
 
-//end of SetDaytimeReminder::enableAlarmManager
+//end of SetDaytimeReminder::activateAlarmManagerIfEnabled
 //-----------------------------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------------------------
@@ -508,8 +543,6 @@ public class SetDaytimeReminder extends AppCompatActivity implements
 //
 // Cancels any active alarm manager triggers.
 //
-// Saves the disabled state in the prefs file.
-//
 
     private void cancelAlarmManager() {
 
@@ -518,8 +551,6 @@ public class SetDaytimeReminder extends AppCompatActivity implements
         alarmIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
 
         alarmMgr.cancel(alarmIntent);
-
-        writeEnabledStateToPrefs(false);
 
     }
 
@@ -543,12 +574,14 @@ public class SetDaytimeReminder extends AppCompatActivity implements
         switch(view.getId()) {
             case R.id.enabledRadioBtn:
                 if (checked)
-                    enableAlarmManager();
-                    break;
+                    activateAlarmManager();
+                    writeEnabledStateToPrefs(true);
+                break;
             case R.id.disabledRadioBtn:
                 if (checked)
                     cancelAlarmManager();
-                    break;
+                    writeEnabledStateToPrefs(false);
+                break;
         }
     }
 
@@ -574,7 +607,7 @@ public class SetDaytimeReminder extends AppCompatActivity implements
 
         writeStringToPrefs("Daytime Alarm Repeat Interval Minutes", interval);
 
-        if (((RadioButton)findViewById(R.id.enabledRadioBtn)).isChecked()){ enableAlarmManager(); }
+        activateAlarmManagerIfEnabled();
 
     }
 

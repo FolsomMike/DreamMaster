@@ -34,6 +34,9 @@ public class ChooseTime extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        setResult(RESULT_CANCELED); // default to canceled action
+
     }
 
 //end of MainActivity::onCreate
@@ -93,7 +96,9 @@ public class ChooseTime extends AppCompatActivity {
 
         saveStartTimeToPrefs();
 
-        NavUtils.navigateUpFromSameTask(this);
+        setResult(RESULT_OK); // use setResult(int resultCode, Intent data) to return an Intent
+
+        finish();
 
     }
 
