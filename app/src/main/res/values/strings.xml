@@ -16,4 +16,5 @@
     <string name="minutes">minutes</string>
     <string name="enabled">Enabled</string>
     <string name="disabled">Disabled</string>
+    <string name="title_activity_set_night_time_reminder">Set Night Time Reminder</string>
 </resources>

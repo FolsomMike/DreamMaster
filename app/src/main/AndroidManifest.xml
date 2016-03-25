@@ -8,10 +8,9 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name=".MainActivity"
-            android:screenOrientation="nosensor"
-            >
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="nosensor">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,10 +21,8 @@
             android:name=".SetDaytimeReminder"
             android:label="Set Daytime Reminder"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="nosensor"
-            >
-
+            android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.mksystems.mks.dreammaster.MainActivity" />
@@ -37,10 +34,17 @@
             android:name=".ChooseTime"
             android:label="@string/title_activity_choose_time"
             android:parentActivityName=".SetDaytimeReminder"
-            android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="nosensor"
-            >
-
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.mksystems.mks.dreammaster.MainActivity" />
+        </activity>
+        <activity
+            android:name=".SetNightTimeReminder"
+            android:label="@string/title_activity_set_night_time_reminder"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.mksystems.mks.dreammaster.MainActivity" />
