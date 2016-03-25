@@ -91,7 +91,7 @@
             android:text="@string/enabled"
             android:id="@+id/enabledRadioBtn"
             android:checked="false"
-            android:onClick="handleEnableDisableRadioBtns" />
+            android:onClick="handleEnabledDisabledRadioBtns" />
 
         <RadioButton
             android:layout_width="wrap_content"
@@ -99,7 +99,7 @@
             android:text="@string/disabled"
             android:id="@+id/disabledRadioBtn"
             android:checked="true"
-            android:onClick="handleEnableDisableRadioBtns" />
+            android:onClick="handleEnabledDisabledRadioBtns" />
 
     </RadioGroup>
 

@@ -81,6 +81,34 @@ public class SetDaytimeReminder extends AppCompatActivity implements
 //-----------------------------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------------------------
+// SetDaytimeReminder::setStartTimeToCurrentIfOlder
+//
+// If the start time is older than the current time or has never been set, the start time is set
+// to the current time and updated in the prefs file.
+//
+
+    private void setStartTimeToCurrentIfOlder() {
+
+        long startTime = readStartTimeFromPrefs();  // set start time
+
+        Calendar calendar = Calendar.getInstance(); // get current time
+
+        if (startTime < calendar.getTimeInMillis()){ //is start time older than current time?
+
+            startTime = calendar.getTimeInMillis();
+
+            PrefsHandler.writeLongToPrefs("Daytime Alarm Start Time", startTime);
+
+            setDaytimeAlarmStartTextView();
+
+        }
+
+    }
+
+//end of SetDaytimeReminder::setStartTimeToCurrentIfOlder
+//-----------------------------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------------------------
 // SetDaytimeReminder::setDaytimeAlarmStartTextView
 //
 // If the start time has been set, it is displayed in the view. If not set, then "not set" is
@@ -88,7 +116,6 @@ public class SetDaytimeReminder extends AppCompatActivity implements
 //
 
     private void setDaytimeAlarmStartTextView() {
-
 
         TextView textView = (TextView) findViewById(R.id.starting_time);
 
@@ -276,12 +303,15 @@ public class SetDaytimeReminder extends AppCompatActivity implements
 // Sets the alarm manager to fire at the specified start time and then repeat at the specified
 // repeat interval.
 //
+// If the start time is older than the current time or has never been set, the start time is set
+// to the current time and updated in the prefs file.
+//
 
     private void activateAlarmManager() {
 
         long startTime = readStartTimeFromPrefs();
 
-        if (startTime == -1) return;
+        setStartTimeToCurrentIfOlder(); //or if equals -1 in case i
 
         int interval = getSelectedIntFromIntervalSpinner();
 
@@ -377,13 +407,13 @@ public class SetDaytimeReminder extends AppCompatActivity implements
 //-----------------------------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------------------------
-// SetDaytimeReminder::handleEnableDisableRadioBtns
+// SetDaytimeReminder::handleEnabledDisabledRadioBtns
 //
 // Handles user selection of the Enable/Disable radio buttons. Enables or disables the daytime
 // reminder alerts.
 //
 
-    public void handleEnableDisableRadioBtns(View view) {
+    public void handleEnabledDisabledRadioBtns(View view) {
 
         // is the button now checked?
         boolean checked = ((RadioButton) view).isChecked();
@@ -404,7 +434,7 @@ public class SetDaytimeReminder extends AppCompatActivity implements
         }
     }
 
-//end of SetDaytimeReminder::handleEnableDisableRadioBtns
+//end of SetDaytimeReminder::handleEnabledDisabledRadioBtns
 //-----------------------------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------------------------
