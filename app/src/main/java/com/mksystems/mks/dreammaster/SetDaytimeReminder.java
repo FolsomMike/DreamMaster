@@ -117,7 +117,8 @@ public class SetDaytimeReminder extends AppCompatActivity implements
 
     private void initRepeatIntervalSpinner() {
 
-        String interval = readStringFromPrefs("Daytime Alarm Repeat Interval Minutes", "15");
+        String interval =
+                PrefsHandler.readStringFromPrefs("Daytime Alarm Repeat Interval Minutes", "15");
 
         Spinner spinner = (Spinner) findViewById(R.id.repeatIntervalSpnr);
 
@@ -178,188 +179,6 @@ public class SetDaytimeReminder extends AppCompatActivity implements
 //-----------------------------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------------------------
-// SetDaytimeReminder::getSharedPrefs
-//
-// Returns a SharedPreferences reference to the app's share preferences file.
-//
-// A named prefs file is used to allow sharing between activities.
-//
-
-    private SharedPreferences getSharedPrefs() {
-
-        return (this.getSharedPreferences(
-                            "com.mksystems.dreammaster.APP_PREFERENCES", Context.MODE_PRIVATE));
-
-    }
-
-//end of SetDaytimeReminder::getSharedPrefs
-//-----------------------------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------------------------
-// SetDaytimeReminder::readLongFromPrefs
-//
-// Reads a long value for pKey from the prefs file using pDefault as the default.
-//
-// A named prefs file is used to allow sharing between activities.
-//
-
-    private long readLongFromPrefs(String pKey, long pDefault) {
-
-        return(getSharedPrefs().getLong(pKey, pDefault));
-
-    }
-
-//end of SetDaytimeReminder::readLongFromPrefs
-//-----------------------------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------------------------
-// SetDaytimeReminder::readIntFromPrefs
-//
-// Reads an int value for pKey from the prefs file using pDefault as the default.
-//
-// A named prefs file is used to allow sharing between activities.
-//
-
-    private int readIntFromPrefs(String pKey, int pDefault) {
-
-        return(getSharedPrefs().getInt(pKey, pDefault));
-
-    }
-
-//end of SetDaytimeReminder::readIntFromPrefs
-//-----------------------------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------------------------
-// SetDaytimeReminder::readBooleanFromPrefs
-//
-// Reads a boolean value for pKey from the prefs file using pDefault as the default.
-//
-// A named prefs file is used to allow sharing between activities.
-//
-
-    private boolean readBooleanFromPrefs(String pKey, boolean pDefault) {
-
-        return(getSharedPrefs().getBoolean(pKey, pDefault));
-
-    }
-
-//end of SetDaytimeReminder::readBooleanFromPrefs
-//-----------------------------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------------------------
-// SetDaytimeReminder::readStringFromPrefs
-//
-// Reads a String value for pKey from the prefs file using pDefault as the default.
-//
-// A named prefs file is used to allow sharing between activities.
-//
-
-    private String readStringFromPrefs(String pKey, String pDefault) {
-
-        return(getSharedPrefs().getString(pKey, pDefault));
-
-    }
-
-//end of SetDaytimeReminder::readStringFromPrefs
-//-----------------------------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------------------------
-// SetDaytimeReminder::getPrefsEditor
-//
-// Returns an editor for the app's prefs file.
-//
-// A named prefs file is used to allow sharing between activities.
-//
-
-    private SharedPreferences.Editor getPrefsEditor() {
-
-        SharedPreferences sharedPref = this.getSharedPreferences(
-                "com.mksystems.dreammaster.APP_PREFERENCES", Context.MODE_PRIVATE);
-
-        return(sharedPref.edit());
-
-    }
-
-//end of SetDaytimeReminder::getPrefsEditor
-//-----------------------------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------------------------
-// SetDaytimeReminder::writeLongToPrefs
-//
-// Writes long pValue to the prefs file for key pKey.
-//
-// A named prefs file is used to allow sharing between activities.
-//
-
-    private void writeLongToPrefs(String pKey, long pValue) {
-
-        SharedPreferences.Editor editor = getPrefsEditor();
-        editor.putLong(pKey, pValue);
-        editor.commit();
-
-    }
-
-//end of SetDaytimeReminder::writeLongToPrefs
-//-----------------------------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------------------------
-// SetDaytimeReminder::writeIntToPrefs
-//
-// Writes int pValue to the prefs file for key pKey.
-//
-// A named prefs file is used to allow sharing between activities.
-//
-
-    private void writeIntToPrefs(String pKey, int pValue) {
-
-        SharedPreferences.Editor editor = getPrefsEditor();
-        editor.putInt(pKey, pValue);
-        editor.commit();
-
-    }
-
-//end of SetDaytimeReminder::writeIntToPrefs
-//-----------------------------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------------------------
-// SetDaytimeReminder::writeBooleanToPrefs
-//
-// Writes boolean pValue to the prefs file for key pKey.
-//
-// A named prefs file is used to allow sharing between activities.
-//
-
-    private void writeBooleanToPrefs(String pKey, boolean pValue) {
-
-        SharedPreferences.Editor editor = getPrefsEditor();
-        editor.putBoolean(pKey, pValue);
-        editor.commit();
-
-    }
-
-//end of SetDaytimeReminder::writeBooleanToPrefs
-//-----------------------------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------------------------
-// SetDaytimeReminder::writeStringToPrefs
-//
-// Writes String pValue to the prefs file for key pKey.
-//
-// A named prefs file is used to allow sharing between activities.
-//
-
-    private void writeStringToPrefs(String pKey, String pValue) {
-
-        SharedPreferences.Editor editor = getPrefsEditor();
-        editor.putString(pKey, pValue);
-        editor.commit();
-
-    }
-
-//end of SetDaytimeReminder::writeStringToPrefs
-//-----------------------------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------------------------
 // SetDaytimeReminder::readStartTimeFromPrefs
 //
 // Reads the Daytime Reminder Alert start time from the prefs file and returns it as
@@ -370,7 +189,7 @@ public class SetDaytimeReminder extends AppCompatActivity implements
 
     private long readStartTimeFromPrefs() {
 
-        return(readLongFromPrefs("Daytime Alarm Start Time", -1));
+        return(PrefsHandler.readLongFromPrefs("Daytime Alarm Start Time", -1));
 
     }
 
@@ -388,7 +207,7 @@ public class SetDaytimeReminder extends AppCompatActivity implements
 
     private boolean readEnabledStateFromPrefs() {
 
-        return(readBooleanFromPrefs("Daytime Alarm Enabled", false));
+        return(PrefsHandler.readBooleanFromPrefs("Daytime Alarm Enabled", false));
 
     }
 
@@ -406,7 +225,7 @@ public class SetDaytimeReminder extends AppCompatActivity implements
 
     private void writeEnabledStateToPrefs(boolean pEnabled) {
 
-        writeBooleanToPrefs("Daytime Alarm Enabled", pEnabled);
+        PrefsHandler.writeBooleanToPrefs("Daytime Alarm Enabled", pEnabled);
 
     }
 
@@ -605,7 +424,7 @@ public class SetDaytimeReminder extends AppCompatActivity implements
 
         String interval = (String)parent.getItemAtPosition(pos);
 
-        writeStringToPrefs("Daytime Alarm Repeat Interval Minutes", interval);
+        PrefsHandler.writeStringToPrefs("Daytime Alarm Repeat Interval Minutes", interval);
 
         activateAlarmManagerIfEnabled();
 

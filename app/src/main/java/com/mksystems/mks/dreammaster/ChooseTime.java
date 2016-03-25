@@ -130,11 +130,7 @@ public class ChooseTime extends AppCompatActivity {
 
         if(tomorrowBtn.isChecked()) { calendar.roll(Calendar.DAY_OF_MONTH, true); }
 
-        SharedPreferences sharedPref = this.getSharedPreferences(
-                "com.mksystems.dreammaster.APP_PREFERENCES", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putLong("Daytime Alarm Start Time", calendar.getTimeInMillis());
-        editor.commit();
+        PrefsHandler.writeLongToPrefs("Daytime Alarm Start Time", calendar.getTimeInMillis());
 
     }
 
