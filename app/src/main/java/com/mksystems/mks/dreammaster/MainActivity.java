@@ -1,10 +1,14 @@
 package com.mksystems.mks.dreammaster;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
+
+import java.text.SimpleDateFormat;
 
 
 //-----------------------------------------------------------------------------------------------
@@ -16,6 +20,8 @@ import android.widget.EditText;
 public class MainActivity extends AppCompatActivity {
 
 
+    private static Context appContext;
+
 //-----------------------------------------------------------------------------------------------
 // MainActivity::onCreate
 //
@@ -24,9 +30,62 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate (Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        appContext = getApplicationContext();
+
     }
 
 // end of MainActivity::onCreate
+//-----------------------------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------------------------
+// MainActivity::onStart
+//
+
+    @Override
+    protected void onStart() {
+
+        super.onStart();
+
+        setEnabledIndicators();
+
+    }
+
+//end of MainActivity::onStart
+//-----------------------------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------------------------
+// MainActivity::setEnabledIndicators
+//
+// Sets the text views for various options to Enabled or blank depending on the state of the
+// corresponding value in the prefs file.
+//
+
+
+    private void setEnabledIndicators() {
+
+
+        TextView textView;
+
+        textView = (TextView) findViewById(R.id.daytimeEnabledTextView);
+
+        if (PrefsHandler.readBooleanFromPrefs("Daytime Alarm Enabled", false)){
+            textView.setText("enabled");
+        }else{
+            textView.setText("");
+        }
+
+        textView = (TextView) findViewById(R.id.nightTimeEnabledTextView);
+
+        if (PrefsHandler.readBooleanFromPrefs("Night Time Alarm Enabled", false)){
+            textView.setText("enabled");
+        }else{
+            textView.setText("");
+        }
+
+    }
+
+//end of MainActivity::setEnabledIndicators
 //-----------------------------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------------------------
@@ -69,6 +128,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
 //end of MainActivity::testAlarmReceiver
+//-----------------------------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------------------------
+// MainActivity::getAppContext
+//
+// Returns the context for the Main Activity.
+//
+
+    public static Context getAppContext () {
+
+        return(appContext);
+
+    }
+
+// end of MainActivity::getAppContext
 //-----------------------------------------------------------------------------------------------
 
 }//end of class MainActivity

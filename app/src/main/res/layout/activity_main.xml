@@ -26,25 +26,64 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:showIn="@layout/activity_my">
+    tools:showIn="@layout/activity_my"
+    android:padding="10dp">
 
     <Space
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="15dp" />
 
-    <Button
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/setDaytimeReminderBtnTxt"
-        android:id="@+id/setDaytimeReminderBtn"
-        android:clickable="false"
-        android:onClick="setDaytimeReminder" />
+        android:layout_gravity="right">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/setNightTimeReminderBtnTxt"
-        android:id="@+id/button2" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/setDaytimeReminderBtnTxt"
+            android:id="@+id/setDaytimeReminderBtn"
+            android:clickable="false"
+            android:onClick="setDaytimeReminder" />
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/enabled"
+            android:id="@+id/daytimeEnabledTextView" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/setNightTimeReminderBtnTxt"
+            android:id="@+id/setNightTimeReminderBtn" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/enabled"
+            android:id="@+id/nightTimeEnabledTextView" />
+    </LinearLayout>
 
 </LinearLayout>
