@@ -44,6 +44,7 @@
             android:name=".SetNightTimeReminder"
             android:label="@string/title_activity_set_night_time_reminder"
             android:parentActivityName=".MainActivity"
+            android:screenOrientation="nosensor"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
