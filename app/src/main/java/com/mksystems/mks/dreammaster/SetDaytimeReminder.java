@@ -316,7 +316,7 @@ public class SetDaytimeReminder extends AppCompatActivity implements
         int interval = getSelectedIntFromIntervalSpinner();
 
         alarmMgr = (AlarmManager)this.getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(this, DaytimeAlarmReceiver.class);
+        Intent intent = new Intent(this, AlarmReceiver.class);
         alarmIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
 
         // set the alarm to repeat at the specified interval
@@ -396,7 +396,7 @@ public class SetDaytimeReminder extends AppCompatActivity implements
     private void cancelAlarmManager() {
 
         alarmMgr = (AlarmManager)this.getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(this, DaytimeAlarmReceiver.class);
+        Intent intent = new Intent(this, AlarmReceiver.class);
         alarmIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
 
         alarmMgr.cancel(alarmIntent);

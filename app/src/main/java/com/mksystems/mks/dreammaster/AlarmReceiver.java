@@ -14,19 +14,19 @@ import android.view.View;
 
 //-----------------------------------------------------------------------------------------------
 //-----------------------------------------------------------------------------------------------
-// class DaytimeAlarmReceiver
+// class AlarmReceiver
 //
-// This class is invoked when the daytime AlarmManager triggers. It will sound an alert to remind
+// This class is invoked when the AlarmManager triggers. It will sound an alert to remind
 // the user to perform a reality check.
 //
 
 
-public class DaytimeAlarmReceiver extends BroadcastReceiver
+public class AlarmReceiver extends BroadcastReceiver
 
 {
 
 //-----------------------------------------------------------------------------------------------
-// DaytimeAlarmReceiver::onReceive
+// AlarmReceiver::onReceive
 //
 
     @Override
@@ -52,11 +52,11 @@ public class DaytimeAlarmReceiver extends BroadcastReceiver
         }catch(java.lang.RuntimeException e){}
     }
 
-//end of DaytimeAlarmReceiver::onReceive
+//end of AlarmReceiver::onReceive
 //-----------------------------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------------------------
-// DaytimeAlarmReceiver::sleep
+// AlarmReceiver::sleep
 //
 
     protected void sleep(int pDuration) {
@@ -69,11 +69,11 @@ public class DaytimeAlarmReceiver extends BroadcastReceiver
 
     }
 
-//end of DaytimeAlarmReceiver::sleep
+//end of AlarmReceiver::sleep
 //-----------------------------------------------------------------------------------------------
 
 
-}// end of class DaytimeAlarmReceiver
+}// end of class AlarmReceiver
 //-----------------------------------------------------------------------------------------------
 //-----------------------------------------------------------------------------------------------
 

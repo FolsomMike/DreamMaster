@@ -139,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void testAlarmReceiver(View v) {
 
-        Intent intent = new Intent(this, DaytimeAlarmReceiver.class);
+        Intent intent = new Intent(this, AlarmReceiver.class);
 
         startActivity(intent);
 
