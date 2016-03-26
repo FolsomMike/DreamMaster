@@ -116,6 +116,24 @@ public class MainActivity extends AppCompatActivity {
 //-----------------------------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------------------------
+// MainActivity::setNightTimeReminder
+//
+// Starts an activity to allow user to set the start time, stop time, and interval for the night
+// time reminder.
+//
+
+    public void setNightTimeReminder(View v) {
+
+        Intent intent = new Intent(this, SetNightTimeReminder.class);
+
+        startActivity(intent);
+
+    }
+
+//end of MainActivity::setNightTimeReminder
+//-----------------------------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------------------------
 // MainActivity::testAlarmReceiver
 //
 

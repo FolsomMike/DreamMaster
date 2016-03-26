@@ -45,7 +45,6 @@
             android:layout_height="wrap_content"
             android:text="@string/setDaytimeReminderBtnTxt"
             android:id="@+id/setDaytimeReminderBtn"
-            android:clickable="false"
             android:onClick="setDaytimeReminder" />
 
         <Space
@@ -71,7 +70,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/setNightTimeReminderBtnTxt"
-            android:id="@+id/setNightTimeReminderBtn" />
+            android:id="@+id/setNightTimeReminderBtn"
+            android:onClick="setNightTimeReminder" />
+            />
 
         <Space
             android:layout_width="wrap_content"

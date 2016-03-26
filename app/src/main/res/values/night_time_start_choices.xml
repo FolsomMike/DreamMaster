@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <string-array name="night_time_start_choices">
+        <item>1 hour</item>
+        <item>1 hour 15 min</item>
+        <item>1 hour 30 min</item>
+        <item>1 hour 45 min</item>
+        <item>2 hour 45 min</item>
+        <item> ---</item>
+        <item>4 hours 15 min</item>
+        <item>4 hours 30 min</item>
+        <item>4 hours 45 min</item>
+        <item>4 hours 45 min</item>
+        <item> ---</item>
+        <item>2 hours</item>
+        <item>2 hours 15 min</item>
+        <item>2 hours 30 min</item>
+        <item>2 hours 45 min</item>
+        <item> ---</item>
+        <item>3 hours</item>
+        <item>3 hours 15 min</item>
+        <item>3 hours 30 min</item>
+        <item>3 hours 45 min</item>
+        <item> ---</item>
+        <item>4 hours</item>
+        <item>4 hours 15 min</item>
+        <item>4 hours 30 min</item>
+        <item>4 hours 45 min</item>
+        <item> ---</item>
+        <item>5 hours</item>
+        <item>5 hours 15 min</item>
+        <item>5 hours 30 min</item>
+        <item>5 hours 45 min</item>
+        <item> ---</item>
+        <item>6 hours</item>
+        <item>6 hours 15 min</item>
+        <item>6 hours 30 min</item>
+        <item>6 hours 45 min</item>
+        <item> ---</item>
+        <item>7 hours</item>
+        <item>7 hours 15 min</item>
+        <item>7 hours 30 min</item>
+        <item>7 hours 45 min</item>
+
+    </string-array>
+</resources>
