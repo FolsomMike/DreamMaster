@@ -23,9 +23,10 @@ tools:showIn="@layout/activity_set_night_time_reminder">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/starting_time"
-        android:id="@+id/starting_time"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:text="@string/delay_time"
+        android:id="@+id/delay_time"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_gravity="center_vertical" />
 
     <Space
         android:layout_width="0dp"
@@ -43,10 +44,9 @@ tools:showIn="@layout/activity_set_night_time_reminder">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/from_time_alert_is_enabled"
-        android:id="@+id/delay_time_hint"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_gravity="center_horizontal" />
+        android:text="@string/current_starting_time"
+        android:id="@+id/starting_time"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
 <LinearLayout
     android:orientation="horizontal"

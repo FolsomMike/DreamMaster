@@ -18,4 +18,6 @@
     <string name="disabled">Disabled</string>
     <string name="title_activity_set_night_time_reminder">Set Night Time Reminder</string>
     <string name="from_time_alert_is_enabled">(from time alert is enabled)</string>
+    <string name="delay_time">Time until alarm:</string>
+    <string name="current_starting_time">Current starting time:</string>
 </resources>

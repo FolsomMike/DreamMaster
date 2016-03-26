@@ -118,10 +118,10 @@ public class SetNightTimeReminder extends AppCompatActivity implements
         long startTime = readStartTimeFromPrefs();
 
         if(startTime == -1){
-            textView.setText("Start time: " + "not set");
+            textView.setText("Current start time: " + "not set");
         }else{
             SimpleDateFormat sdf = new SimpleDateFormat("MM-dd hh:mm a");
-            textView.setText("Start time: " + sdf.format(startTime));
+            textView.setText("Current start time: " + sdf.format(startTime));
         }
 
     }
@@ -265,8 +265,11 @@ public class SetNightTimeReminder extends AppCompatActivity implements
 //-----------------------------------------------------------------------------------------------
 // SetNightTimeReminder::writeEnabledStateToPrefs
 //
-// Writes the NightTime Reminder Alert enabled/disabled status to the prefs file per the state of
+// Writes the Night Time Reminder Alert enabled/disabled status to the prefs file per the state of
 // pEnabled.
+//
+// If Night Time enabled, the Daytime Reminder Alert is disabled as only one can be enabled at
+// any given time.
 //
 // A named prefs file is used to allow sharing between activities.
 //
@@ -274,6 +277,10 @@ public class SetNightTimeReminder extends AppCompatActivity implements
     private void writeEnabledStateToPrefs(boolean pEnabled) {
 
         PrefsHandler.writeBooleanToPrefs("Night Time Alarm Enabled", pEnabled);
+
+        if(pEnabled) {
+            PrefsHandler.writeBooleanToPrefs("Daytime Alarm Enabled", false);
+        }
 
     }
 

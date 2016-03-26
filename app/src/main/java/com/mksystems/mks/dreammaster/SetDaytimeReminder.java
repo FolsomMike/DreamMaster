@@ -242,12 +242,19 @@ public class SetDaytimeReminder extends AppCompatActivity implements
 // Writes the Daytime Reminder Alert enabled/disabled status to the prefs file per the state of
 // pEnabled.
 //
+// If Daytime enabled, the Night Time Reminder Alert is disabled as only one can be enabled at any
+// given time.
+//
 // A named prefs file is used to allow sharing between activities.
 //
 
     private void writeEnabledStateToPrefs(boolean pEnabled) {
 
         PrefsHandler.writeBooleanToPrefs("Daytime Alarm Enabled", pEnabled);
+
+        if(pEnabled) {
+            PrefsHandler.writeBooleanToPrefs("Night Time Alarm Enabled", false);
+        }
 
     }
 
