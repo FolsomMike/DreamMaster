@@ -29,7 +29,8 @@ public class SetNightTimeReminder extends AppCompatActivity implements
     private AlarmManager alarmMgr;
     private PendingIntent alarmIntent;
 
-    private boolean ignoreSpinner = false;
+    private boolean ignoreViewChanges1 = false;
+    private boolean ignoreViewChanges2 = false;
 
     static final int SET_TIME_REQUEST = 1;
 
@@ -74,6 +75,8 @@ public class SetNightTimeReminder extends AppCompatActivity implements
         initEnabledDisabledRadioBtnState();
 
         initRepeatIntervalSpinner();
+
+        initStartDelaySpinner();
 
     }
 
@@ -129,7 +132,7 @@ public class SetNightTimeReminder extends AppCompatActivity implements
 //-----------------------------------------------------------------------------------------------
 // SetNightTimeReminder::initRepeatIntervalSpinner
 //
-// Reads the enabled/disabled state from the prefs file and sets the radio buttons to match.
+// Reads the repeat interval value from the prefs file and sets the spinner to match.
 //
 // Flag ignoreSpinner is set true as setting the selection will trigger the onItemSelected
 // call when that is not wanted...the true flag causes the function to do nothing.
@@ -138,17 +141,42 @@ public class SetNightTimeReminder extends AppCompatActivity implements
     private void initRepeatIntervalSpinner() {
 
         String interval =
-                PrefsHandler.readStringFromPrefs("NightTime Alarm Repeat Interval Minutes", "15");
+                PrefsHandler.readStringFromPrefs("Night Time Alarm Repeat Interval Minutes", "15");
 
         Spinner spinner = (Spinner) findViewById(R.id.repeatIntervalSpnr);
 
-        ignoreSpinner = true;
+        ignoreViewChanges1 = true;
 
         spinner.setSelection(getIndexInIntervalSpinner(spinner, interval));
 
     }
 
 //end of SetNightTimeReminder::initRepeatIntervalSpinner
+//-----------------------------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------------------------
+// SetNightTimeReminder::initStartDelaySpinner
+//
+// Reads the start delay value from the prefs file and sets the spinner to match.
+//
+// Flag ignoreSpinner is set true as setting the selection will trigger the onItemSelected
+// call when that is not wanted...the true flag causes the function to do nothing.
+//
+
+    private void initStartDelaySpinner() {
+
+        String value =
+                PrefsHandler.readStringFromPrefs("Night Time Start Delay", "1 hour");
+
+        Spinner spinner = (Spinner) findViewById(R.id.startTimeSpnr);
+
+        ignoreViewChanges2 = true;
+
+        spinner.setSelection(getIndexInIntervalSpinner(spinner, value));
+
+    }
+
+//end of SetNightTimeReminder::initStartDelaySpinner
 //-----------------------------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------------------------
@@ -201,7 +229,7 @@ public class SetNightTimeReminder extends AppCompatActivity implements
 //-----------------------------------------------------------------------------------------------
 // SetNightTimeReminder::readStartTimeFromPrefs
 //
-// Reads the NightTime Reminder Alert start time from the prefs file and returns it as
+// Reads the Night Time Reminder Alert start time from the prefs file and returns it as
 // milliseconds in a long.
 //
 // A named prefs file is used to allow sharing between activities.
@@ -441,13 +469,14 @@ public class SetNightTimeReminder extends AppCompatActivity implements
 //
 // If the alarm is enabled, calls to enable it again which will override the previous alarm.
 //
-// If ignoreSpinner is true, nothing is done except resetting that flag. This allows the
-// spinner's value to be initialized when the activity is opened without setting the alarm.
+// If ignoreViewChanges is true, nothing is done. This allows an view's value to be initialized when
+// the activity is opened without triggering other actions.
 //
 
     public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
 
-        if (ignoreSpinner){ ignoreSpinner = false; return; }
+        if (ignoreViewChanges1){ ignoreViewChanges1 = false; return; }
+        if (ignoreViewChanges2){ ignoreViewChanges2 = false; return; }
 
         Spinner spinner;
 
