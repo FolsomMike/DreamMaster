@@ -302,9 +302,9 @@ public class SetNightTimeReminder extends AppCompatActivity implements
 
     private void activateAlarmManager() {
 
-        long startTime = readStartTimeFromPrefs();
+        setStartTimeFromCurrent(); //update to start from current time plus user selected delay
 
-        setStartTimeFromCurrent();
+        long startTime = readStartTimeFromPrefs();
 
         int interval = getSelectedIntFromIntervalSpinner();
 
