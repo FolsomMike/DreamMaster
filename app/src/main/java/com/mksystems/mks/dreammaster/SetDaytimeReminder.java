@@ -322,7 +322,7 @@ public class SetDaytimeReminder extends AppCompatActivity implements
         alarmIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
 
         // set the alarm to repeat at the specified interval
-        alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, startTime, 1000 * 60 * interval, alarmIntent);
+        alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, startTime, 1000*60 * interval, alarmIntent);
 
     }
 
