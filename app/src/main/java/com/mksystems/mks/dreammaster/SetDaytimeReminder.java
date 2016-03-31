@@ -302,8 +302,13 @@ public class SetDaytimeReminder extends AppCompatActivity implements
 //-----------------------------------------------------------------------------------------------
 // SetDaytimeReminder::activateAlarmManager
 //
-// Sets the alarm manager to fire at the specified start time and then repeat at the specified
-// repeat interval.
+// Sets the alarm manager to fire at the specified start time. The receiver code will schedule the
+// next alarm at the specified repeat interval.
+//
+// The function alarmMgr.setExactAndAllowWhileIdle is used rather than alarmMgr.setRepeating as the
+// latter is VERY inexact...+/-16 minutes for a 20 minute interval per testing. The former is
+// exact and allows alarms even when the device is in low-power mode (Dozing) when unplugged and
+// idle. There is no precise repeating alarm function.
 //
 // If the start time is older than the current time or has never been set, the start time is set
 // to the current time and updated in the prefs file.
@@ -321,8 +326,8 @@ public class SetDaytimeReminder extends AppCompatActivity implements
         Intent intent = new Intent(this, AlarmReceiver.class);
         alarmIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
 
-        // set the alarm to repeat at the specified interval
-        alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, startTime, 1000*60 * interval, alarmIntent);
+        //set the first alarm -- receiver will schedule repeated alarm -- see notes above
+        alarmMgr.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, startTime,  alarmIntent);
 
     }
 
