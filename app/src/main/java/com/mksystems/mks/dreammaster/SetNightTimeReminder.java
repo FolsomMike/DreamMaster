@@ -452,12 +452,12 @@ public class SetNightTimeReminder extends AppCompatActivity implements
             case R.id.enabledRadioBtn:
                 if (checked)
                     activateAlarmManager();
-                writeEnabledStateToPrefs(true);
+                    writeEnabledStateToPrefs(true);
                 break;
             case R.id.disabledRadioBtn:
                 if (checked)
                     cancelAlarmManager();
-                writeEnabledStateToPrefs(false);
+                    writeEnabledStateToPrefs(false);
                 break;
         }
     }
