@@ -28,7 +28,7 @@
                 android:value="com.mksystems.mks.dreammaster.MainActivity" />
         </activity>
 
-        <receiver android:name=".DaytimeAlarmReceiver" />
+        <receiver android:name=".AlarmReceiver" />
 
         <activity
             android:name=".ChooseTime"
