@@ -1,5 +1,7 @@
 package com.mksystems.mks.dreammaster;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -11,6 +13,8 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+
+import java.util.Calendar;
 
 //-----------------------------------------------------------------------------------------------
 //-----------------------------------------------------------------------------------------------
@@ -50,9 +54,47 @@ public class AlarmReceiver extends BroadcastReceiver
             tg.release();
 
         }catch(java.lang.RuntimeException e){}
+
+
+        activateAlarmManager(); // activate the next alarm based on the user specified interval
+
     }
 
 //end of AlarmReceiver::onReceive
+//-----------------------------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------------------------
+// SetDaytimeReminder::activateAlarmManager
+//
+// Sets the alarm manager to fire again after the number of minutes specified by the interval
+// stored in the prefs file.
+//
+// The function alarmMgr.setExactAndAllowWhileIdle is used rather than alarmMgr.setRepeating as the
+// latter is VERY inexact...+/-16 minutes for a 20 minute interval per testing. The former is
+// exact and allows alarms even when the device is in low-power mode (Dozing) when unplugged and
+// idle. There is no precise repeating alarm function.
+//
+
+    private void activateAlarmManager() {
+
+        Calendar calendar = Calendar.getInstance();
+
+        int interval = PrefsHandler.readIntFromPrefs("Interval for the Currently Active Alarm", 15);
+
+        long startTime = calendar.getTimeInMillis() + interval * 60 * 1000;
+
+        Context context = MainActivity.getAppContext();
+
+        AlarmManager alarmMgr = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(context, AlarmReceiver.class);
+        PendingIntent alarmIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
+
+        //set the first alarm -- receiver will schedule repeated alarm -- see notes above
+        alarmMgr.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, startTime, alarmIntent);
+
+    }
+
+//end of SetDaytimeReminder::activateAlarmManager
 //-----------------------------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------------------------

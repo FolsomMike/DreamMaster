@@ -302,8 +302,8 @@ public class SetDaytimeReminder extends AppCompatActivity implements
 //-----------------------------------------------------------------------------------------------
 // SetDaytimeReminder::activateAlarmManager
 //
-// Sets the alarm manager to fire at the specified start time. The receiver code will schedule the
-// next alarm at the specified repeat interval.
+// Sets the alarm manager to fire at the specified start time. The alarm broadcast receiver code
+// will schedule the next alarm at the specified repeat interval.
 //
 // The function alarmMgr.setExactAndAllowWhileIdle is used rather than alarmMgr.setRepeating as the
 // latter is VERY inexact...+/-16 minutes for a 20 minute interval per testing. The former is
@@ -318,20 +318,37 @@ public class SetDaytimeReminder extends AppCompatActivity implements
 
         long startTime = readStartTimeFromPrefs();
 
-        setStartTimeToCurrentIfOlder(); //or if equals -1 in case i
+        setStartTimeToCurrentIfOlder(); //or if equals -1 in case it has never been set
 
-        int interval = getSelectedIntFromIntervalSpinner();
+        parseIntervalAndStoreInPrefs(); //store current interval value for use by the Receiver
 
         alarmMgr = (AlarmManager)this.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(this, AlarmReceiver.class);
         alarmIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
 
         //set the first alarm -- receiver will schedule repeated alarm -- see notes above
-        alarmMgr.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, startTime,  alarmIntent);
+        alarmMgr.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, startTime, alarmIntent);
 
     }
 
 //end of SetDaytimeReminder::activateAlarmManager
+//-----------------------------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------------------------
+// SetDaytimeReminder::parseIntervalAndStoreInPrefs
+//
+// Parses the alarm interval from the spinner selection and stores it in the prefs file.
+//
+
+    private void parseIntervalAndStoreInPrefs() {
+
+        int interval = getSelectedIntFromIntervalSpinner();
+
+        PrefsHandler.writeIntToPrefs("Interval for the Currently Active Alarm", interval);
+
+    }
+
+//end of SetDaytimeReminder::parseIntervalAndStoreInPrefs
 //-----------------------------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------------------------
