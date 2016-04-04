@@ -50,6 +50,30 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.mksystems.mks.dreammaster.MainActivity" />
         </activity>
+
+
+        <!-- NOTE MKS
+
+        After upgrading the IDE to 23.0, began to receive error for rendering this activity:
+        "setShadowLayer is not supported"
+        This option is not supported with all devices/software versions, so turning it off is
+        the best option for now
+
+        -->
+
+
+        <activity
+
+            android:hardwareAccelerated="false"
+
+            android:name=".IndexActivity"
+            android:label="@string/title_activity_index"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.mksystems.mks.dreammaster.MainActivity" />
+        </activity>
     </application>
 
 </manifest>
