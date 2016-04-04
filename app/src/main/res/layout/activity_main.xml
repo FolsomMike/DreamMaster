@@ -27,7 +27,8 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_my"
-    android:padding="10dp">
+    android:padding="10dp"
+    android:weightSum="1">
 
     <Space
         android:layout_width="match_parent"
@@ -86,5 +87,30 @@
             android:text="@string/enabled"
             android:id="@+id/nightTimeEnabledTextView" />
     </LinearLayout>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.76"
+        android:minHeight="5dp" />
+
+    <ImageView
+        android:layout_width="293dp"
+        android:layout_height="306dp"
+        android:id="@+id/imageView2"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/front_page" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="5dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/instructions"
+        android:id="@+id/instructionsBtn"
+        android:layout_gravity="center_horizontal" />
 
 </LinearLayout>
