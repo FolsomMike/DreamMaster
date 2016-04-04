@@ -134,6 +134,23 @@ public class MainActivity extends AppCompatActivity {
 //-----------------------------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------------------------
+// MainActivity::displayInstructions
+//
+// Starts an activity to display app instructions and the Dream Guide.
+//
+
+    public void displayInstructions(View v) {
+
+        Intent intent = new Intent(this, IndexActivity.class);
+
+        startActivity(intent);
+
+    }
+
+//end of MainActivity::displayInstructions
+//-----------------------------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------------------------
 // MainActivity::testAlarmReceiver
 //
 
