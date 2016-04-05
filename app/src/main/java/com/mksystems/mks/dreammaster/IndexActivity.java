@@ -1,5 +1,6 @@
 package com.mksystems.mks.dreammaster;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -18,4 +19,23 @@ public class IndexActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
+
+
+//-----------------------------------------------------------------------------------------------
+// IndexActivity::displayHowToUseTheApp
+//
+// Starts an activity to display app instructions.
+//
+
+    public void displayHowToUseTheApp(View v) {
+
+        Intent intent = new Intent(this, HowToUseTheApp.class);
+
+        startActivity(intent);
+
+    }
+
+//end of IndexActivity::displayHowToUseTheApp
+//-----------------------------------------------------------------------------------------------
+
 }
