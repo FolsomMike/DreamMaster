@@ -53,5 +53,22 @@ public class IndexActivity extends AppCompatActivity {
 //end of IndexActivity::displayUsingTheLucidityAlerts
 //-----------------------------------------------------------------------------------------------
 
+//-----------------------------------------------------------------------------------------------
+// IndexActivity::displayCredits
+//
+// Starts an activity to display the credits.
+//
+
+    public void displayCredits(View v) {
+
+        Intent intent = new Intent(this, Credits.class);
+
+        startActivity(intent);
+
+    }
+
+//end of IndexActivity::displayCredits
+//-----------------------------------------------------------------------------------------------
+
 
 }

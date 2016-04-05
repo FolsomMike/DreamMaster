@@ -96,6 +96,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.mksystems.mks.dreammaster.IndexActivity" />
         </activity>
+        <activity
+            android:name=".Credits"
+            android:label="@string/title_activity_credits"
+            android:parentActivityName=".IndexActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.mksystems.mks.dreammaster.IndexActivity" />
+        </activity>
     </application>
 
 </manifest>

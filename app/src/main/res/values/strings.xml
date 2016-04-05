@@ -121,4 +121,13 @@
     </string>
     <string name="credits">credits</string>
     <string name="about_the_app">oh, snap...about the app</string>
+    <string name="title_activity_credits">Credits</string>
+    <string name="illustrations">Illustrations</string>
+    <string name="penciler_c_boyce">penciler ~ c boyce</string>
+    <string name="colorist_m_skoonie">colorist ~ m skooonie</string>
+    <string name="programming">Programming</string>
+    <string name="software_m_skoonie">software ~ m skoonie</string>
+    <string name="testing_the_skoonies">testing ~ the skoonies</string>
+    <string name="credits_dream_guide">Dream Guide</string>
+    <string name="text_m_skoonie">text ~ m skoonie</string>
 </resources>
