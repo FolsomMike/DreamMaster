@@ -2,8 +2,6 @@ package com.mksystems.mks.dreammaster;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -22,20 +20,38 @@ public class IndexActivity extends AppCompatActivity {
 
 
 //-----------------------------------------------------------------------------------------------
-// IndexActivity::displayHowToUseTheApp
+// IndexActivity::displayUsingTheDreamLog
 //
-// Starts an activity to display app instructions.
+// Starts an activity to display dream log instructions.
 //
 
-    public void displayHowToUseTheApp(View v) {
+    public void displayUsingTheDreamLog(View v) {
 
-        Intent intent = new Intent(this, HowToUseTheApp.class);
+        Intent intent = new Intent(this, UsingTheDreamLog.class);
 
         startActivity(intent);
 
     }
 
-//end of IndexActivity::displayHowToUseTheApp
+//end of IndexActivity::displayUsingTheDreamLog
 //-----------------------------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------------------------
+// IndexActivity::displayUsingTheLucidityAlerts
+//
+// Starts an activity to display lucidity alert instructions.
+//
+
+    public void displayUsingTheLucidityAlerts(View v) {
+
+        Intent intent = new Intent(this, UsingTheLucidityAlerts.class);
+
+        startActivity(intent);
+
+    }
+
+//end of IndexActivity::displayUsingTheLucidityAlerts
+//-----------------------------------------------------------------------------------------------
+
 
 }

@@ -77,8 +77,8 @@
                 android:value="com.mksystems.mks.dreammaster.MainActivity" />
         </activity>
         <activity
-            android:name=".HowToUseTheApp"
-            android:label="@string/title_activity_how_to_use_the_app"
+            android:name=".UsingTheLucidityAlerts"
+            android:label="Using the Lucidity Alerts"
             android:parentActivityName=".IndexActivity"
             android:screenOrientation="nosensor"
             android:theme="@style/AppTheme.NoActionBar">
@@ -90,6 +90,7 @@
             android:name=".UsingTheDreamLog"
             android:label="@string/title_activity_using_the_dream_log"
             android:parentActivityName=".IndexActivity"
+            android:screenOrientation="nosensor"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

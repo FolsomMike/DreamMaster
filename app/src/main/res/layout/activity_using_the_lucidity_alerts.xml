@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.mksystems.mks.dreammaster.HowToUseTheApp">
+    tools:context=".UsingTheLucidityAlerts">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -21,6 +21,6 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_how_to_use_the_app" />
+    <include layout="@layout/content_using_the_lucidity_alerts" />
 
 </android.support.design.widget.CoordinatorLayout>

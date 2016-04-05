@@ -6,8 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.mksystems.mks.dreammaster.HowToUseTheApp"
-    tools:showIn="@layout/activity_how_to_use_the_app">
+    tools:context=".UsingTheLucidityAlerts"
+    tools:showIn="@layout/activity_using_the_lucidity_alerts">
 
     <LinearLayout
         android:orientation="vertical"
