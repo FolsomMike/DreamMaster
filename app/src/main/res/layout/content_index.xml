@@ -35,7 +35,8 @@ tools:showIn="@layout/activity_index">
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="@string/using_the_dream_log"
-            android:id="@+id/textViewA1" />
+            android:id="@+id/textViewA1"
+            android:onClick="displayHowToUseTheApp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -114,6 +115,61 @@ tools:showIn="@layout/activity_index">
             android:text="research topics"
             android:id="@+id/textView8"
             android:layout_marginTop="10dp" />
+
+
+        <!-- debug mks -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="achieving lucidity"
+            android:id="@+id/textViewd1"
+            android:layout_marginTop="10dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/dream_exploration"
+            android:id="@+id/textViewd2"
+            android:layout_marginTop="10dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="research topics"
+            android:id="@+id/textViewd3"
+            android:layout_marginTop="10dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="achieving lucidity"
+            android:id="@+id/textViewd4"
+            android:layout_marginTop="10dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/dream_exploration"
+            android:id="@+id/textViewd5"
+            android:layout_marginTop="10dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="research topics"
+            android:id="@+id/textViewd6"
+            android:layout_marginTop="10dp" />
+
+
+        <!-- end debug mks -->
+
 
     </LinearLayout>
 

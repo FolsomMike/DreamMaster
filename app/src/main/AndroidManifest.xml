@@ -76,12 +76,20 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.mksystems.mks.dreammaster.MainActivity" />
         </activity>
-
         <activity
             android:name=".HowToUseTheApp"
             android:label="@string/title_activity_how_to_use_the_app"
             android:parentActivityName=".IndexActivity"
             android:screenOrientation="nosensor"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.mksystems.mks.dreammaster.IndexActivity" />
+        </activity>
+        <activity
+            android:name=".UsingTheDreamLog"
+            android:label="@string/title_activity_using_the_dream_log"
+            android:parentActivityName=".IndexActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
